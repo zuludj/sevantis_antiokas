@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -11,7 +12,7 @@ using antiokas.Models;
 
 namespace antiokas.Controllers
 {
-    public class VideosController : Controller
+    public class VideoController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -21,19 +22,19 @@ namespace antiokas.Controllers
             return View(db.Videos.ToList());
         }
 
-        // GET: VideoAssets/Details/5
+        // GET: Video/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Video videoAsset = db.Videos.Find(id);
-            if (videoAsset == null)
+            Video video = db.Videos.Include(s => s.VideoFiles).SingleOrDefault(s => s.Id == id);
+            if (video == null)
             {
                 return HttpNotFound();
             }
-            return View(videoAsset);
+            return View(video);
         }
 
         // GET: VideoAssets/Create
@@ -47,22 +48,42 @@ namespace antiokas.Controllers
         // POST: VideoAssets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public ActionResult Create([Bind(Include = "Id,Title,ReleaseYear,ProductionHouse,Description,Cover,Genre")] Video video,HttpPostedFileBase upload)
+        public ActionResult Create([Bind(Include = "Title, Director, Year, Genre, ProductionHouse, Description, Director")]Video video, HttpPostedFileBase upload)
         {
-            
-            if (ModelState.IsValid)
+            try
             {
-                db.Videos.Add(video);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    if (upload != null && upload.ContentLength > 0)
+                    {
+                        var avatar = new VideoFile
+                        {
+                            FileName = Path.GetFileName(upload.FileName),
+                            FileType = FileType.Vid,
+                            Cover=FileType.Avatar,
+                            ContentType = upload.ContentType
+                        };
+                        using (var reader = new BinaryReader(upload.InputStream))
+                        {
+                            avatar.Content = reader.ReadBytes(upload.ContentLength);
+                        }
+                        video.VideoFiles = new List<VideoFile> { avatar };
+                    }
+                    db.Videos.Add(video);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
             return View(video);
         }
-
         // GET: VideoAssets/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -83,7 +104,7 @@ namespace antiokas.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,ReleaseDate,ReleaseYear,ProductionHouse,Description,Cover,Genre")] Video videoAsset)
+        public ActionResult Edit([Bind(Include = "Id,Title,Year,ProductionHouse,Description,Genre")] Video videoAsset)
         {
             if (ModelState.IsValid)
             {

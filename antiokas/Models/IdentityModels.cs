@@ -43,5 +43,7 @@ namespace antiokas.Models
         public DbSet<Transaction> Transactions { get; set; }
 
         public DbSet<Video> Videos { get; set; }
+
+        public DbSet<VideoFile> VideoFiles { get; set; }
     }
 }

@@ -197,24 +197,22 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SevantisAccountController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
-    <Compile Include="Controllers\VideosController.cs" />
+    <Compile Include="Controllers\VideoFileController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804292038104_InitialCreate.cs" />
-    <Compile Include="Migrations\201804292038104_InitialCreate.Designer.cs">
-      <DependentUpon>201804292038104_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201805031551131_First.cs" />
+    <Compile Include="Migrations\201805031551131_First.Designer.cs">
+      <DependentUpon>201805031551131_First.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804292056396_Initial Migration.cs" />
-    <Compile Include="Migrations\201804292056396_Initial Migration.Designer.cs">
-      <DependentUpon>201804292056396_Initial Migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805021028539_testing.cs" />
-    <Compile Include="Migrations\201805021028539_testing.Designer.cs">
-      <DependentUpon>201805021028539_testing.cs</DependentUpon>
+    <Compile Include="Migrations\201805031601275_First1.cs" />
+    <Compile Include="Migrations\201805031601275_First1.Designer.cs">
+      <DependentUpon>201805031601275_First1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\VideoFile.cs" />
     <Compile Include="Models\FileType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -303,14 +301,15 @@
     <Content Include="Views\Transactions\Details.cshtml" />
     <Content Include="Views\Transactions\Edit.cshtml" />
     <Content Include="Views\Transactions\Index.cshtml" />
-    <Content Include="Views\Videos\Create.cshtml" />
-    <Content Include="Views\Videos\Delete.cshtml" />
-    <Content Include="Views\Videos\Details.cshtml" />
-    <Content Include="Views\Videos\Edit.cshtml" />
-    <Content Include="Views\Videos\Index.cshtml" />
+    <Content Include="Views\Video\Delete.cshtml" />
+    <Content Include="Views\Video\Edit.cshtml" />
+    <Content Include="Views\Video\Index.cshtml" />
+    <Content Include="Views\Video\Create.cshtml" />
+    <Content Include="Views\Video\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\VideoFile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -326,14 +325,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804292038104_InitialCreate.resx">
-      <DependentUpon>201804292038104_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805031551131_First.resx">
+      <DependentUpon>201805031551131_First.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804292056396_Initial Migration.resx">
-      <DependentUpon>201804292056396_Initial Migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805021028539_testing.resx">
-      <DependentUpon>201805021028539_testing.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805031601275_First1.resx">
+      <DependentUpon>201805031601275_First1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
