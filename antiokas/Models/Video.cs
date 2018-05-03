@@ -31,6 +31,7 @@ namespace antiokas.Models
         public string Description { get; set; }
 
         public virtual ICollection<VideoFile> VideoFiles { get; set; }
+        public virtual ICollection<Cover> Covers { get; set; }
 
     }
 }

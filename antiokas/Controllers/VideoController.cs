@@ -51,26 +51,46 @@ namespace antiokas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Title, Director, Year, Genre, ProductionHouse, Description, Director")]Video video, HttpPostedFileBase upload)
+        public ActionResult Create([Bind(Include = "Title, Director, Year, Genre, ProductionHouse, Description, Director")]Video video, HttpPostedFileBase upload,HttpPostedFileBase cover)
         {
+
+            //HttpContext.Current.Request.GetBufferlessInputStream(true);
             try
             {
                 if (ModelState.IsValid)
                 {
                     if (upload != null && upload.ContentLength > 0)
                     {
-                        var avatar = new VideoFile
+                        var vid = new VideoFile
                         {
                             FileName = Path.GetFileName(upload.FileName),
                             FileType = FileType.Vid,
-                            Cover=FileType.Avatar,
                             ContentType = upload.ContentType
                         };
                         using (var reader = new BinaryReader(upload.InputStream))
                         {
-                            avatar.Content = reader.ReadBytes(upload.ContentLength);
+
+                            vid.Content = reader.ReadBytes(upload.ContentLength);
                         }
-                        video.VideoFiles = new List<VideoFile> { avatar };
+
+                        video.VideoFiles = new List<VideoFile> { vid };
+                    }
+
+                    if (cover != null && cover.ContentLength > 0)
+                    {
+                        var avatar = new Cover
+                        {
+                            FileName = Path.GetFileName(cover.FileName),
+                            FileType = FileType.Avatar,
+                            ContentType = cover.ContentType
+                        };
+                        using (var reader = new BinaryReader(cover.InputStream))
+                        {
+
+                            avatar.Content = reader.ReadBytes(cover.ContentLength);
+                        }
+
+                        video.Covers = new List<Cover> {avatar };
                     }
                     db.Videos.Add(video);
                     db.SaveChanges();

@@ -45,5 +45,8 @@ namespace antiokas.Models
         public DbSet<Video> Videos { get; set; }
 
         public DbSet<VideoFile> VideoFiles { get; set; }
+
+        public DbSet<Cover> Covers { get; set; }
+
     }
 }
