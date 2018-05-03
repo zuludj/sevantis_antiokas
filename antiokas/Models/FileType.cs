@@ -7,6 +7,6 @@ namespace antiokas.Models
 {
     public enum FileType
     {
-        Cover=1, Photo
+        Avatar=1, Photo
     }
 }

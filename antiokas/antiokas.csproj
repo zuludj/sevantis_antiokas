@@ -197,7 +197,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SevantisAccountController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
-    <Compile Include="Controllers\UploadDownloadController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -221,7 +220,6 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SevantisAccount.cs" />
     <Compile Include="Models\Transaction.cs" />
-    <Compile Include="Models\UploadFileModel.cs" />
     <Compile Include="Models\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SevantisAccountService.cs" />
@@ -310,8 +308,6 @@
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Videos\Edit.cshtml" />
     <Content Include="Views\Videos\Index.cshtml" />
-    <Content Include="Views\UploadDownload\FileUpload.cshtml" />
-    <Content Include="Views\UploadDownload\_FileDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
