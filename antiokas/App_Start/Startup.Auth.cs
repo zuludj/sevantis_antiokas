@@ -54,9 +54,9 @@ namespace antiokas
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "235622917185719",
+               appSecret: "8b119c421f4790bc1dd6e3d52b3b3a69");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

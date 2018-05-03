@@ -1,4 +1,6 @@
-﻿using System;
+﻿using antiokas.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +10,14 @@ namespace antiokas.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        [Authorize]
         public ActionResult Index()
         {
+            var userId = User.Identity.GetUserId();
+            var sevantisAccountId = db.SevantisAccounts.Where(c => c.ApplicationUserId == userId).FirstOrDefault().Id;
+            ViewBag.SevantisAccountId = sevantisAccountId;
             return View();
         }
 

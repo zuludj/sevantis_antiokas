@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using antiokas.Models;
+using antiokas.Services;
 
 namespace antiokas.Controllers
 {
@@ -151,10 +152,14 @@ namespace antiokas.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, model.FirstName));
+                    var service = new SevantisAccountService(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
+                    service.CreateSevantisAccount(model.FirstName, model.LastName, user.Id, 0);
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -374,6 +379,8 @@ namespace antiokas.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        var service = new SevantisAccountService(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
+                        service.CreateSevantisAccount("Facebook", "User", user.Id, 500);
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }

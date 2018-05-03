@@ -1,0 +1,27 @@
+﻿@model IEnumerable<antiokas.Models.Video>
+
+
+<table class="table table-bordered">
+    <tr>
+        <th class="col-md-4">
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+
+        <th class="col-md-2"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+
+            <td>
+                @Html.ActionLink("Downlaod", "DownLoadFile", new { id = item.Id  })
+
+            </td>
+        </tr>
+    }
+
+</table>
