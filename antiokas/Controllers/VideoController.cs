@@ -54,7 +54,6 @@ namespace antiokas.Controllers
         public ActionResult Create([Bind(Include = "Title, Director, Year, Genre, ProductionHouse, Description, Director")]Video video, HttpPostedFileBase upload,HttpPostedFileBase cover)
         {
 
-            //HttpContext.Current.Request.GetBufferlessInputStream(true);
             try
             {
                 if (ModelState.IsValid)

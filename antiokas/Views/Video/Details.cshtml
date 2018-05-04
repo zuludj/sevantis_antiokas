@@ -5,11 +5,12 @@
     <h4>Video</h4>
     <hr />
     <dl class="dl-horizontal">
-            @if(Model.VideoFiles.Any(f => f.FileType == FileType.Avatar)){
+        @if (Model.VideoFiles.Any(f => f.FileType == FileType.Avatar))
+        {
             <dt>
-                Avatar
+                Cover
             </dt>
-            <dd class="col-md-offset-3">
+            <dd >
                 <img src="~/File?id=@Model.Covers.First(f => f.FileType == FileType.Avatar).Id" alt="avatar" height="300" />
             </dd>
         }
@@ -60,10 +61,20 @@
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-
-    </dl>
+    </dl>  
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink(
+                      linkText: "Download",
+                      actionName: "VideoDownload",
+                      controllerName: "Download",
+                      routeValues: new
+                      {
+                          id = Model.Id
+                      },
+                      htmlAttributes: null
+                  )
+</p>
+<p>
     @Html.ActionLink("Back to List", "Index")
 </p>
