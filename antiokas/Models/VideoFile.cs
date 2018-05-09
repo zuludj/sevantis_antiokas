@@ -16,6 +16,7 @@ namespace antiokas.Models
         public byte[] Content { get; set; }
         public FileType FileType { get; set; }
         public int VideoId { get; set; }
+        public virtual Cover Cover { get; set; }
 
         public virtual Video Video
         {

@@ -222,8 +222,8 @@
     <Compile Include="Models\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SevantisAccountService.cs" />
-    <Compile Include="Services\VideoEncryptionService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="XXTEA.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
